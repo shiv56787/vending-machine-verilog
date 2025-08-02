@@ -1,0 +1,105 @@
+`timescale 1ns/1ps
+module testbench;
+
+  reg clk, reset;
+  reg [3:0] coin;
+  reg select, refund;
+  wire dispense, change, invalid;
+  wire [3:0] led;
+  wire [6:0] seg;reg clk, reset;
+  reg [3:0] coin;
+  reg select, refund;
+  wire dispense, change, invalid;
+  wire [3:0] led;
+  wire [6:0] seg;
+
+  vending_machine dut (
+    .clk(clk), .reset(reset),
+    .coin(coin), .select(select), .refund(refund),
+    .dispense(dispense), .change(change), .invalid(invalid),
+    .led(led), .seg(seg)
+  );
+
+  always #5 clk = ~clk;
+
+  initial begin
+    $dumpfile("waveform.vcd");
+    $dumpvars(0, testbench);
+
+    clk = 0;
+    reset = 1; coin = 0; select = 0; refund = 0;
+    #10 reset = 0;
+
+    // 5
+    #10 coin = 4'd5;
+    #10 coin = 0;
+    // 10
+    #10 coin = 4'd10;
+    #10 coin = 0;
+    // product
+    #10 select = 1;
+    #10 select = 0;
+    // invalid coin
+    #10 coin = 4'd7;
+    #10 coin = 0;
+    //15
+    #10 coin = 4'd15;
+    #10 coin = 0;
+    //buy again
+    #10 select = 1;
+    #10 select = 0;
+    // Refund
+    #10 coin = 4'd10;
+    #10 coin = 0;
+    #10 refund = 1;
+    #10 refund = 0;
+
+    #50 $finish;
+  end
+endmodule
+
+
+  vending_machine dut (
+    .clk(clk), .reset(reset),
+    .coin(coin), .select(select), .refund(refund),
+    .dispense(dispense), .change(change), .invalid(invalid),
+    .led(led), .seg(seg)
+  );
+
+  always #5 clk = ~clk;
+
+  initial begin
+    $dumpfile("waveform.vcd");
+    $dumpvars(0, testbench);
+
+    clk = 0;
+    reset = 1; coin = 0; select = 0; refund = 0;
+    #10 reset = 0;
+
+    // 5
+    #10 coin = 4'd5;
+    #10 coin = 0;
+    // 10
+    #10 coin = 4'd10;
+    #10 coin = 0;
+    // product
+    #10 select = 1;
+    #10 select = 0;
+    // invalid coin
+    #10 coin = 4'd7;
+    #10 coin = 0;
+    //15
+    #10 coin = 4'd15;
+    #10 coin = 0;
+    //buy again
+    #10 select = 1;
+    #10 select = 0;
+    // Refund
+    #10 coin = 4'd10;
+    #10 coin = 0;
+    #10 refund = 1;
+    #10 refund = 0;
+
+    #50 $finish;
+  end
+endmodule
